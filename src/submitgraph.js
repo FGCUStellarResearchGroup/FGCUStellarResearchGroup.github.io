@@ -170,7 +170,7 @@ function submitScatter(data, data2, labelX, labelY) {
             layout: 'vertical',
             align: 'center',
             title: {
-                text: 'Median Flux: ' + medianFlux + '<br/>Estimated Noise: ' + getNoise()
+                text: 'Median Flux: ' + round(medianFlux, 1) + '<br/>Estimated Noise: ' + round((getNoise() * 1000000), 0) + 'ppm'
             }
         },
         xAxis: {
