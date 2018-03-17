@@ -99,7 +99,7 @@ function csvtojson(csv) {
                     targetID = targetFilename.split('ktwo')[1].split('-')[0];
                 }
                 catch (anyError) {
-                    targetID = "ID unknown";
+                    targetID = "ID unknown: " + targetFilename;
                 }
                 break;
         }
