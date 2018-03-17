@@ -308,3 +308,13 @@ function nanmean(input) {
     mean = sum / count;
     return mean;
 }
+
+function getNoise() {
+    // if (useDFT) {
+    //     return math.std(diff(detrendedFlux));
+    // }
+    // else {
+    //     return math.std(diff(targetFlux));
+    // }
+    return math.std(diff(targetFlux));
+}

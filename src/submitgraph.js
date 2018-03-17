@@ -38,12 +38,14 @@ function submit(data,labelX,labelY) {
             }
         },
         legend: {
+            // labelFormatter: function () {
+            //     return this.name
+            // }, 
+            layout: 'vertical',
+            align: 'center',
             title: {
-                text: 'Median Flux: ' + medianFlux,
-                style: {
-                    fontStyle: 'italic'
-                }
-            },
+                text: 'Median Flux: ' + medianFlux + '<br/>Estimated Noise: ' + getNoise()
+            }
         },
         plotOptions: {
             series: {
@@ -53,7 +55,6 @@ function submit(data,labelX,labelY) {
             }
         },
         series: [{
-            
             name: 'EPIC ' + targetID, // targetSource +  <= in case we get to a point where multiple input sources are being used
             data: data
         }],

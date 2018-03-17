@@ -87,15 +87,20 @@ function csvtojson(csv) {
                 targetID = allTextLines[2].split(/[[\]]{1,2}/)[1];
                 break;
 
-            case "": // K2
-                // placeholder
+            // case "": // K2
+            //     // placeholder
 
-                break;
+            //     break;
             
             default:
                 // TODO: should probably throw an error if unrecognized source, as it'll fail regardless (and probably not gracefully)
                 targetSource = "Kepler";
-                targetID = targetFilename.split('ktwo')[1].split('-')[0];
+                try {
+                    targetID = targetFilename.split('ktwo')[1].split('-')[0];
+                }
+                catch (anyError) {
+                    targetID = "ID unknown";
+                }
                 break;
         }
     while(isNaN(allTextLines[i].split(',')[0]) || isNaN(allTextLines[i+1].split(',')[0]) || allTextLines[i].split(',') == "") {
@@ -128,4 +133,23 @@ function sortFunction(a, b) {
     else {
         return (a[0] < b[0]) ? -1 : 1;
     }
+}
+
+function asciiOutput () {
+    var textFile = null, 
+      makeTextFile = function(data) {
+        var dataBlob = new Blob([data], {type: 'text/plain'});
+
+        if (textFile !== null) {
+            window.URL.revokeObjectURL(textFile);
+        }
+
+        textFile = window.URL.createObjectURL(dataBlob);
+        return textFile;
+    };
+
+    var create = document.getElementById(),
+      textbox = document.getElementById();
+
+      create.addEventListener();
 }
