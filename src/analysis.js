@@ -312,6 +312,12 @@ function nanmean(input) {
     return mean;
 }
 
+// simple helper function to define decimal rounding with precision
+function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+}
+
 function getNoise() {
     // if (useDFT) {
     //     return math.std(diff(detrendedFlux));
