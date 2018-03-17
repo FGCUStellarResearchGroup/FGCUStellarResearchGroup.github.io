@@ -11,6 +11,8 @@ function handleFiles(files) {
 
 function getAsText(fileToRead) {
     var reader = new FileReader();
+    // Get the name of the file so we know what the target is
+    window.targetFilename = fileToRead.name;
     // Read file into memory as UTF-8      
     reader.readAsText(fileToRead);
     // Handle errors load
@@ -72,7 +74,6 @@ function csvtojson(csv) {
     // TODO: if these are going to be globals, they should probably be declared in a constructor
     window.targetSource = "";
     window.targetID = "";
-    window.targetData = [];
     window.targetTime = [];
     window.targetFlux = [];
     window.detrendedFlux = [];
@@ -94,7 +95,7 @@ function csvtojson(csv) {
             default:
                 // TODO: should probably throw an error if unrecognized source, as it'll fail regardless (and probably not gracefully)
                 targetSource = "Kepler";
-                targetID = "";
+                targetID = targetFilename.split('ktwo')[1].split('-')[0];
                 break;
         }
     while(isNaN(allTextLines[i].split(',')[0]) || isNaN(allTextLines[i+1].split(',')[0]) || allTextLines[i].split(',') == "") {
@@ -104,22 +105,19 @@ function csvtojson(csv) {
     }
     for (; i < allTextLines.length - 1; i++) {
         dataline = allTextLines[i].split(',');
-        targetData.push([+dataline[0],+dataline[2]]);
         targetTime.push(+dataline[0]);
         targetFlux.push(+dataline[2]); 
         // NOTE: using dataline[2] because it's going into the detrender later
         // TODO: needs updating, as different sources may different data layouts, so this hardcoding isn't ideal
     }
     lastline = allTextLines[i].split(',');
-    targetData.push([+lastline[0],+lastline[1]]);
     console.log(targetSource + targetID); // for debugging; never seen by users
 
+    // NOTE: adding this small function to normalize flux; divides all target data values by the median flux value
+    //       it might be more appropriate in analysis.js instead, but it should be done before any analysis takes place
+    window.medianFlux = math.median(targetFlux);
+    targetFlux = targetFlux.map(x => x / medianFlux);
 
-/*  NOTE: full disclosure here, sort() causes an issue where the first index, targetData[0][i] is 0,NaN
-    the shift() removes that 0,NaN entry, but it's likely that a point or two of data are being lost in translation
-    the sort() function is required because without it, the graph refuses to display; sort() is the lesser evil 
-*/
-    targetData.sort(sortFunction).shift();
     timeseries();
 }
 

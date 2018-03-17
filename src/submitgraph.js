@@ -5,7 +5,9 @@ function submit(data,labelX,labelY) {
     Highcharts.chart('container', {
 
         chart: {
-            zoomType: 'x'
+            zoomType: 'x',
+            marginTop: 100,
+            marginRight: 50
         },
         title: {
             text: 'AstroDev Webviewer'
@@ -21,7 +23,9 @@ function submit(data,labelX,labelY) {
             enabled: true
         },
         tooltip: {
-            enabled: false
+            enabled: true,
+            useHtml: true,
+            pointFormat:'<tr><td style="color: {series.color}">' + labelY + ': </td>' + '<td style="text-align: right"><b>{point.y} </b></td></tr>'
         },
         xAxis: {
             title: {
@@ -33,6 +37,14 @@ function submit(data,labelX,labelY) {
                 text: labelY
             }
         },
+        legend: {
+            title: {
+                text: 'Median Flux: ' + medianFlux,
+                style: {
+                    fontStyle: 'italic'
+                }
+            },
+        },
         plotOptions: {
             series: {
                 marker: {
@@ -42,13 +54,15 @@ function submit(data,labelX,labelY) {
         },
         series: [{
             
-            //name: targetSource + ' ID: ' + targetID,
+            name: 'EPIC ' + targetID, // targetSource +  <= in case we get to a point where multiple input sources are being used
             data: data
         }],
 
 
         // the following was taken from a stackoverflow and so the code formatting is broken but the output looks good so ¯\_(ツ)_/¯
         exporting: {
+            sourceWidth: 1250,
+            sourceHeight: 400,
             buttons: {
                 contextButton: {
                     menuItems: [{
@@ -69,6 +83,9 @@ function submit(data,labelX,labelY) {
                             this.exportChart({
                                 type: "image/png"
                             }, {
+                                title: {
+                                    text: ''
+                                },
                                 subtitle: {
                                     text: ''
                                 }});
@@ -80,6 +97,9 @@ function submit(data,labelX,labelY) {
                     this.exportChart({
                         type: "image/jpeg"
                     }, {
+                        title: {
+                            text: ''
+                        },
                         subtitle: {
                             text: ''
                         }
@@ -91,6 +111,9 @@ function submit(data,labelX,labelY) {
                     this.exportChart({
                         type: "application/pdf"
                     }, {
+                        title: {
+                            text: ''
+                        },
                         subtitle: {
                             text: ''
                         }
@@ -102,6 +125,9 @@ function submit(data,labelX,labelY) {
                     this.exportChart({
                         type: "image/svg+xml"
                     }, {
+                        title: {
+                            text: ''
+                        },
                         subtitle: {
                             text: ''
                         }

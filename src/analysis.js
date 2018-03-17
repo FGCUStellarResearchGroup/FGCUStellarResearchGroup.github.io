@@ -42,7 +42,7 @@ function calculateDetrend() {
     //placeholder
     tempFlux = targetFlux;
     tempTime = targetTime;
-    meanFlux = math.mean(targetData);
+    meanFlux = math.mean(targetFlux);
     var binFlux;
     function removeOutlier(array) {
         return array.filter(element => math.abs(element) < 3 * tsStd)
@@ -115,7 +115,7 @@ function calculateDetrend() {
 function calculateDFT() {
     // placeholder
     // Don't use FFT from numericJS package - probably makes bad assumptions
-    alert("DFFT may take several seconds - Please be patient!");
+    alert("DFT may take several seconds - Please be patient!");
     var frequency = numeric.linspace(0.0225, 1.0, 9775); // equivalent? to numpy: arange(0.0225,1.0,0.001)
     var whichFlux = (useDFT && (detrendedFlux.length > 0)) ? detrendedFlux: targetFlux;
     var powers = discreteFourierTransform(targetTime,whichFlux,frequency);
@@ -123,7 +123,7 @@ function calculateDFT() {
     for (i = 0; i < powers.length; i ++) {
         graphData.push([+frequency[i],+powers[i]]);
     }
-    submit(graphData, 'Frequency', 'Power');
+    submit(graphData, 'Frequency', 'Amplitude');
 }
 
 function detrend() {
@@ -135,7 +135,7 @@ function detrend() {
     for (i = 0; i < detrending.targetTime.length - 1; i++) {
         graphData.push([+detrending.targetTime[i],+detrendedFlux[i]]);
     }
-    submit(graphData,'Time','Counts');
+    submit(graphData,'Time','Detrended Relative Flux');
 }
 
 function calculatePhase() {
@@ -187,7 +187,11 @@ function timeseries() {
         // use fluxes as calculated from DFT
         // ask why AD uses this in the DFT call - you can do the DFT on the DFT??
     //}
-    submit(targetData,'Time','Counts');
+    graphData = [];
+    for (i = 0; i < targetFlux.length - 1; i++) {
+        graphData.push([+targetTime[i],+targetFlux[i]]);
+    }
+    submit(graphData,'Time','Relative Flux');
 }
 
 
