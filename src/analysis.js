@@ -119,6 +119,8 @@ function calculateDFT() {
     var frequency = numeric.linspace(0.0225, 1.0, 9775); // equivalent? to numpy: arange(0.0225,1.0,0.001)
     var whichFlux = (useDFT && (detrendedFlux.length > 0)) ? detrendedFlux: targetFlux;
     var powers = discreteFourierTransform(targetTime,whichFlux,frequency);
+    var scale = 2/targetTime.length;
+    powers = powers.map(x => x * scale);
     graphData = [];
     for (i = 0; i < powers.length; i ++) {
         graphData.push([+frequency[i],+powers[i]]);
