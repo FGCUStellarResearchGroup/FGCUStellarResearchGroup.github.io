@@ -140,9 +140,10 @@ function detrend() {
 
 function calculatePhase() {
     var phase = [];
+    var period = 1/phaseFreq;
     var time = targetTime;
     for (i = 0; i < time.length; i++) {
-        phase.push((time[i]/phasePeriod) % 1);
+        phase.push((time[i]/period) % 1);
     }
     var phaseTwo = [];
     for (i = 0; i < phase.length; i++) {
@@ -168,8 +169,8 @@ function calculatePhase() {
 }
 
 function updatePhasePeriod(value) {
-    phasePeriod = value;
-    console.log("window.phaseFrequency is now: " + phasePeriod);
+    phaseFreq = value;
+    console.log("window.phaseFrequency is now: " + phaseFreq);
 }
 
 function updateUseDetrended() {

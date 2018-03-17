@@ -79,7 +79,7 @@ function csvtojson(csv) {
     window.detrendedFlux = [];
     window.useDFT = false;
     document.getElementById("useDetrend").checked = false;
-    window.phasePeriod = 5;
+    window.phaseFreq = 5;
     switch(allTextLines[0].split(' ')[0]) {
         // different data sources may have special case input formats to deal with
             case "Kepler":

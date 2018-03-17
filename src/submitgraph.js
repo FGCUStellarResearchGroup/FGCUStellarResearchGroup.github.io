@@ -163,6 +163,16 @@ function submitScatter(data, data2, labelX, labelY) {
                 'Pinch in the plot area to zoom in'
                 // changes for which device is used to view
         },
+        legend: {
+            // labelFormatter: function () {
+            //     return this.name
+            // }, 
+            layout: 'vertical',
+            align: 'center',
+            title: {
+                text: 'Median Flux: ' + medianFlux + '<br/>Estimated Noise: ' + getNoise()
+            }
+        },
         xAxis: {
             title: {
                 enabled: true,
@@ -183,7 +193,90 @@ function submitScatter(data, data2, labelX, labelY) {
             name: 'Phase 2',
             color: 'rgba(119, 152, 191, .5)',
             data: data2
-        }]
+        }],
+
+
+        // the following was taken from a stackoverflow and so the code formatting is broken but the output looks good so ¯\_(ツ)_/¯
+        exporting: {
+            sourceWidth: 1250,
+            sourceHeight: 400,
+            buttons: {
+                contextButton: {
+                    menuItems: [{
+                    textKey: "printChart",
+                    onclick: function () {
+                        var titulo = this.options.subtitle.text;
+                        this.setTitle(null, { text: ' ' });
+                        this.print();
+                        this.setTitle(null, { text: titulo });
+                    },
+                },
+                {
+                    separator:	true
+                },	
+                {
+                        text: 'Export to PNG',
+                        onclick: function() {
+                            this.exportChart({
+                                type: "image/png"
+                            }, {
+                                title: {
+                                    text: ''
+                                },
+                                subtitle: {
+                                    text: ''
+                                }});
+                        },
+                        separator: false
+                    }, {
+                textKey: "downloadJPEG",
+                onclick: function() {
+                    this.exportChart({
+                        type: "image/jpeg"
+                    }, {
+                        title: {
+                            text: ''
+                        },
+                        subtitle: {
+                            text: ''
+                        }
+                    });
+                }
+            }, {
+                textKey: "downloadPDF",
+                onclick: function() {
+                    this.exportChart({
+                        type: "application/pdf"
+                    }, {
+                        title: {
+                            text: ''
+                        },
+                        subtitle: {
+                            text: ''
+                        }
+                    });
+                }
+            }, {
+                textKey: "downloadSVG",
+                onclick: function() {
+                    this.exportChart({
+                        type: "image/svg+xml"
+                    }, {
+                        title: {
+                            text: ''
+                        },
+                        subtitle: {
+                            text: ''
+                        }
+                    });
+                }
+                        
+                        
+                        
+                    }]
+                }
+            }
+        }
     });
     
 }
