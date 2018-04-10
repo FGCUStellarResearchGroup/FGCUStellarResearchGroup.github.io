@@ -9,6 +9,10 @@ function submit(data,labelX,labelY) {
             marginTop: 100,
             marginRight: 50
         },
+        mapNavigation: {
+            enabled: true,
+            enableButtons: false
+        },
         title: {
             text: 'AstroDev Webviewer'
             // there's supposed to be a way to change font family/weight, but it hasn't worked for me yet
@@ -153,6 +157,10 @@ function submitScatter(data, data2, labelX, labelY) {
             type: 'scatter',
             zoomType: 'xy'
         },
+        mapNavigation: {
+            enabled: true,
+            enableButtons: false
+        },
         title: {
             text: 'AstroDev Webviewer'
             // there's supposed to be a way to change font family/weight, but it hasn't worked for me yet
@@ -185,13 +193,21 @@ function submitScatter(data, data2, labelX, labelY) {
             }
         },
         series: [{
-            name: 'Phase 1',
+            showInLegend: false,
+            name: 'Phase',
             color: 'rgba(223, 83, 83, .5)',
+            marker: {
+                symbol: 'circle'
+            },
             data: data
     
         }, {
+            showInLegend: false,
             name: 'Phase 2',
-            color: 'rgba(119, 152, 191, .5)',
+            color: 'rgba(223, 83, 83, .5)',
+            marker: {
+                symbol: 'circle'
+            },
             data: data2
         }],
 
