@@ -155,7 +155,7 @@ function submitScatter(data, data2, labelX, labelY) {
     Highcharts.chart('container', {
         chart: {
             type: 'scatter',
-            zoomType: 'xy'
+            zoomType: 'x'
         },
         mapNavigation: {
             enabled: true,
