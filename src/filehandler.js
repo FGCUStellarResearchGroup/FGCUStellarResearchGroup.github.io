@@ -72,11 +72,14 @@ function csvtojson(csv) {
              ought to be reserved for static values. Currently this is a "good enough" implementation 
     */
     // TODO: if these are going to be globals, they should probably be declared in a constructor
+    //       and maybe they really shouldn't be globals...
     window.targetSource = "";
     window.targetID = "";
     window.targetTime = [];
     window.targetFlux = [];
     window.detrendedFlux = [];
+    window.DFTtimeseries = [];
+    window.DFTdetrendedseries = [];
     window.useDFT = false;
     document.getElementById("useDetrend").checked = false;
     window.phaseFreq = 5;

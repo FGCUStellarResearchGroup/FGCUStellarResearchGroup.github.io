@@ -115,16 +115,35 @@ function calculateDetrend() {
 function calculateDFT() {
     // placeholder
     // Don't use FFT from numericJS package - probably makes bad assumptions
-    alert("DFT may take several seconds - Please be patient!");
-    var frequency = numeric.linspace(0.0225, 1.0, 9775); // equivalent? to numpy: arange(0.0225,1.0,0.001)
-    var whichFlux = (useDFT && (detrendedFlux.length > 0)) ? detrendedFlux: targetFlux;
-    var powers = discreteFourierTransform(targetTime,whichFlux,frequency);
-    var scale = 2/targetTime.length;
-    powers = powers.map(x => x * scale);
-    graphData = [];
-    for (i = 0; i < powers.length; i ++) {
-        graphData.push([+frequency[i],+powers[i]]);
+    if ((DFTtimeseries.length > 0) && !(useDFT)) {
+        graphData = DFTtimeseries;
     }
+    else if (useDFT && (DFTdetrendedseries.length > 0)) {
+        graphData = DFTdetrendedseries;
+    }
+    else {
+        var addInfo = ""
+        if (detrendedFlux.length == 0 && useDFT) {
+            addInfo = "\nData is being detrended first!";
+            var detrending = calculateDetrend();
+            detrendedFlux = detrending.fluxesDFT;
+        }
+        
+        alert("DFT may take several seconds - Please be patient!" + addInfo);
+        var frequency = numeric.linspace(0.0225, 1.0, 9775); // equivalent? to numpy: arange(0.0225,1.0,0.001)
+        var whichFlux = (useDFT) ? detrendedFlux: targetFlux;
+        var powers = discreteFourierTransform(targetTime,whichFlux,frequency);
+        var scale = 2/targetTime.length;
+        powers = powers.map(x => x * scale);
+        graphData = [];
+        for (i = 0; i < powers.length; i ++) {
+            graphData.push([+frequency[i],+powers[i]]);
+        }
+        if (useDFT) DFTdetrendedseries = graphData;
+        else DFTtimeseries = graphData;
+    } // end if DFT was already run
+    //graphData = (useDFT && (DFTdetrendedseries > 0)) ? DFTdetrendedseries: DFTtimeseries;
+    
     submit(graphData, 'Frequency', 'Amplitude');
 }
 
