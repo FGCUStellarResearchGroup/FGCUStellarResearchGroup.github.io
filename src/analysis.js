@@ -98,11 +98,12 @@ function calculateDetrend() {
         }
     }
     
-    graphData = [];
-    for (i = 0; i < pOut.length - 1; i++) {
-        graphData.push([+targetTime[i],+pOut[i]]);
-    }
-    submit(graphData,'Time','Counts');
+    // for debugging purposes; was used to verify that the bins were working correctly
+    // graphData = [];
+    // for (i = 0; i < pOut.length - 1; i++) {
+    //     graphData.push([+targetTime[i],+pOut[i]]);
+    // }
+    // submit(graphData,'Time','Counts'); 
 
     return {
         targetTime: targetTime,
@@ -152,11 +153,11 @@ function detrend() {
     // graphing extention needs to show the outcome
     var detrending = calculateDetrend();
     detrendedFlux = detrending.fluxesDFT;
-    graphData = [];
+    detrendGraphData = [];
     for (i = 0; i < detrending.targetTime.length - 1; i++) {
-        graphData.push([+detrending.targetTime[i],+detrendedFlux[i]]);
+        detrendGraphData.push([+detrending.targetTime[i],+detrendedFlux[i]]);
     }
-    submit(graphData,'Time','Detrended Relative Flux');
+    submit(detrendGraphData,'Time','Detrended Relative Flux');
 }
 
 function calculatePhase() {
@@ -177,16 +178,16 @@ function calculatePhase() {
     else { fluxesHere = targetFlux}
 
     // NOTE: these might be more efficiently done but this follows the standards for graphing already set
-    graphData = [];
+    phaseGraphData1 = [];
     for (i = 0; i < phase.length; i++) {
-        graphData.push([+phase[i], +fluxesHere[i]]);
+        phaseGraphData1.push([+phase[i], +fluxesHere[i]]);
     }
-    graphData2 = [];
+    phaseGraphData2 = [];
     for (i = 0; i < phaseTwo.length; i++) {
-        graphData2.push([+phaseTwo[i], +fluxesHere[i]]);
+        phaseGraphData2.push([+phaseTwo[i], +fluxesHere[i]]);
     }
 
-    submitScatter(graphData,graphData2,'Phase', 'Counts');
+    submitScatter(phaseGraphData1,phaseGraphData2,'Phase', 'Counts');
 }
 
 function updatePhasePeriod(value) {
@@ -209,11 +210,11 @@ function timeseries() {
         // use fluxes as calculated from DFT
         // ask why AD uses this in the DFT call - you can do the DFT on the DFT??
     //}
-    graphData = [];
+    seriesGraphData = [];
     for (i = 0; i < targetFlux.length - 1; i++) {
-        graphData.push([+targetTime[i],+targetFlux[i]]);
+        seriesGraphData.push([+targetTime[i],+targetFlux[i]]);
     }
-    submit(graphData,'Time','Relative Flux');
+    submit(seriesGraphData,'Time','Relative Flux');
 }
 
 

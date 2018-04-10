@@ -1,5 +1,5 @@
 // NOTE: in creating graphData before submitting, the unary operator '+' just makes sure that
-//     the things being pushed to the array is, in fact, a number instead of a function or something
+//     the thing being pushed to the array is, in fact, a number instead of a function or something
 function submit(data,labelX,labelY) {
 
     Highcharts.chart('container', {
