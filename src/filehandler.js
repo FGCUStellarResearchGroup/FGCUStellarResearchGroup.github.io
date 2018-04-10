@@ -156,3 +156,32 @@ function asciiOutput () {
 
       create.addEventListener();
 }
+
+function outputCSV() {
+    // create array of arrays - reverse of the reading in function
+    dataline = [];
+    for () {
+        // push the values for the calculated variables (all in the window/global, unless that changes)
+    }
+}
+
+function csvworksheet () {
+    var test_array = [["name1", 2, 3], ["name2", 4, 5], ["name3", 6, 7], ["name4", 8, 9], ["name5", 10, 11]];
+
+	var csvContent = "data:text/csv;charset=utf-8,";
+	$("#pressme").click(function(){
+		test_array.forEach(function(infoArray, index){
+			dataString = infoArray.join(",");
+			csvContent += dataString+ "\n";
+		});
+
+		var encodedUri = encodeURI(csvContent);
+		
+var link = document.createElement("a");
+link.setAttribute("href", encodedUri);
+link.setAttribute("download", "my_data.csv");
+document.body.appendChild(link); // Required for FF
+
+link.click(); // This will download the data file named "my_data.csv".
+	});
+}
