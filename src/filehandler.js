@@ -160,9 +160,9 @@ function asciiOutput () {
 function outputCSV() {
     // create array of arrays - reverse of the reading in function
     dataline = [];
-    for () {
-        // push the values for the calculated variables (all in the window/global, unless that changes)
-    }
+    // for () {
+    //     // push the values for the calculated variables (all in the window/global, unless that changes)
+    // }
 }
 
 function csvworksheet () {
