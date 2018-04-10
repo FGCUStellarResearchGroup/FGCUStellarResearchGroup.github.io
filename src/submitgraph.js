@@ -155,11 +155,7 @@ function submitScatter(data, data2, labelX, labelY) {
     Highcharts.chart('container', {
         chart: {
             type: 'scatter',
-            zoomType: 'x'
-        },
-        mapNavigation: {
-            enabled: true,
-            enableButtons: false
+            zoomType: 'xy'
         },
         title: {
             text: 'AstroDev Webviewer'
